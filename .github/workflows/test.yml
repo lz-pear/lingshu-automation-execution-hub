@@ -10,6 +10,7 @@ jobs:
     env:
       PLATFORM_DATABASE_URL: postgresql+asyncpg://user:pass@localhost/test
       PLATFORM_ADMIN_PASSWORD: test-only-password
+      PYTHONPATH: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
