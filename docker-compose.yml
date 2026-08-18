@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  platform:
+    image: automation-platform:2.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: automation-platform
+    env_file:
+      - ${PLATFORM_ENV_FILE:-./deploy.env}
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./storage/local-scripts:/data/local-scripts
+      - ./storage/artifacts:/data/artifacts
+      - ./storage/script-file-temp:/data/script-file-temp
+    shm_size: "1gb"
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 30s
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5002/health', timeout=5).read()"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

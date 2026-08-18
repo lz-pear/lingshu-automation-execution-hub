@@ -1,0 +1,29 @@
+# 本地运行与密钥配置
+deploy.env
+.env
+*.env
+*.pem
+*.key
+*.p12
+*.pfx
+
+# 数据库、运行数据与临时文件
+*.db
+*.sqlite
+*.log
+storage/artifacts/
+storage/script-file-temp/
+storage/local-scripts/*
+!storage/local-scripts/.gitkeep
+
+# Python 与测试缓存
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# 编辑器与系统文件
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
